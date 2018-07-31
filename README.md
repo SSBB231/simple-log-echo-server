@@ -1,6 +1,6 @@
 # simple-log-echo-server
 
-<h1>Simple Echo and Log Server</h1>
+<h2>Description</h2>
 
 <p>
 The simple-log-echo-server is just that: a server that will take incoming HTTP requests,
