@@ -1,3 +1,3 @@
-com/mycompany/app/LogEchoServer.class
-com/mycompany/app/Main.class
-com/mycompany/app/SimpleLogEchoServer.class
+com\mycompany\app\SimpleLogEchoServer.class
+com\mycompany\app\LogEchoServer.class
+com\mycompany\app\Main.class
