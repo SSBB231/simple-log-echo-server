@@ -16,7 +16,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
     public void go(int port) throws IOException{
 
-        serverSocket = new ServerSocket(8080);
+        serverSocket = new ServerSocket(port);
         System.out.println(String.format("Started server on port %d", port));
 
         while(true){
