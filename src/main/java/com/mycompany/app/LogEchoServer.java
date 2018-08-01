@@ -7,5 +7,4 @@ public interface LogEchoServer {
     void go(int port) throws IOException;
     Socket acceptConnection() throws IOException;
     void serviceConnection(Socket clientSocket) throws IOException;
-
 }
