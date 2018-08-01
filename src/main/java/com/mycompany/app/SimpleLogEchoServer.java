@@ -105,7 +105,9 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
     private String readBody(BufferedReader clientInputReader, int length) throws IOException{
 
-        if(length <= 0 || length >= 2000){
+        final int MEGABYTE = 1000000000;
+
+        if(length <= 0 || length >= 2*MEGABYTE){
             return "";
         }
 
