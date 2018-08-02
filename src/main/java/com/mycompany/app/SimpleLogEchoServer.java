@@ -46,8 +46,6 @@ public class SimpleLogEchoServer implements LogEchoServer{
                 System.out.println("Oops! Something happened. Connection ended.");
             }
         }
-
-
     }
 
     public Socket acceptConnection() throws IOException {
@@ -78,6 +76,8 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
         System.out.println(String.format("\n----------------------------------------------------------------\n%s", now.toString()));
         System.out.println(String.format("Request number: %d", connectionCount));
+        System.out.println(String.format("Headers length: %d", headers.length()));
+        System.out.println(String.format("Body size: %d", body.length()));
         System.out.println(String.format("Port: %d\n", clientSocket.getPort()));
         System.out.print(headers);
         System.out.println("\r");
