@@ -75,6 +75,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
         System.out.println(String.format("\nConnection on port %d opened", clientSocket.getPort()));
         System.out.println(String.format("----------------------------------------------------------------\n%s", now.toString()));
+        System.out.println(String.format("This string came from %s", clientSocket.getInetAddress().getHostName()));
         System.out.println(String.format("Request number: %d", connectionCount));
         System.out.println(String.format("Headers size: %d", headers.length()));
         System.out.println(String.format("Body size: %d", body.length()));
