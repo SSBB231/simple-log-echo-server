@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -60,7 +61,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
             return;
         }
 
-        Timestamp now = new Timestamp(System.currentTimeMillis());
+        Date now = new Date();
 
         // Create read and write streams
         InputStreamReader clientInput = new InputStreamReader(clientSocket.getInputStream());
@@ -76,6 +77,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
         System.out.println(String.format("\nConnection on port %d opened", clientSocket.getPort()));
         System.out.println(String.format("----------------------------------------------------------------\n%s", now.toString()));
         System.out.println(String.format("This string came from %s", clientSocket.getInetAddress().getHostName()));
+        System.out.println(String.format("IP address of remote %s", clientSocket.getInetAddress().getHostAddress()));
         System.out.println(String.format("Request number: %d", connectionCount));
         System.out.println(String.format("Headers size: %d", headers.length()));
         System.out.println(String.format("Body size: %d", body.length()));
