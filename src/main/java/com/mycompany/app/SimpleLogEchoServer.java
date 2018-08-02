@@ -101,7 +101,6 @@ public class SimpleLogEchoServer implements LogEchoServer{
         clientWriter.close();
 
         System.out.println(String.format("Connection on port %d closed", clientSocket.getPort()));
-        System.out.flush();
     }
 
     private int extractContentLength(String line){
