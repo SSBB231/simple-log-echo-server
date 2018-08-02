@@ -82,7 +82,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
         System.out.print(headers);
         System.out.println("\r");
         System.out.println(body);
-        System.out.println(String.format("----------------------------------------------------------------\n"));
+        System.out.println(String.format("----------------------------------------------------------------"));
 
         // Write response
         StringBuilder response = new StringBuilder();
