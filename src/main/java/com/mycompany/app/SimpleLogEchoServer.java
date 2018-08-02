@@ -100,6 +100,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
         clientWriter.close();
 
         System.out.println(String.format("Connection on port %d closed", clientSocket.getPort()));
+        System.out.flush();
     }
 
     private int extractContentLength(String line){
@@ -126,6 +127,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
             }
 
             retval.append(String.format("%s\r\n", line));
+            System.out.println(line);
             line = reader.readLine();
         }
 
