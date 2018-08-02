@@ -14,6 +14,23 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
     ServerSocket serverSocket;
     int contentLength = 0;
+    int connectionCount;
+
+    public SimpleLogEchoServer(){
+        connectionCount = Integer.MAX_VALUE-2;
+    }
+
+    private void resetConnectionCount(){
+        connectionCount = 0;
+    }
+
+    private void incrementConnectionCount(){
+        if(connectionCount+1 == Integer.MAX_VALUE){
+            resetConnectionCount();
+        }
+
+        connectionCount++;
+    }
 
     public void go(int port) throws IOException{
 
@@ -34,7 +51,9 @@ public class SimpleLogEchoServer implements LogEchoServer{
     }
 
     public Socket acceptConnection() throws IOException {
-        return serverSocket.accept();
+        Socket clientSocket = serverSocket.accept();
+        incrementConnectionCount();
+        return clientSocket;
     }
 
     public void serviceConnection(Socket clientSocket) throws IOException{
@@ -57,11 +76,13 @@ public class SimpleLogEchoServer implements LogEchoServer{
         String body = readBody(clientInputReader, contentLength);
 
 
-        System.out.println(String.format("----------------------------------------------------------------\n%s\n", now.toString()));
+        System.out.println(String.format("\n----------------------------------------------------------------\n%s", now.toString()));
+        System.out.println(String.format("Request number: %d", connectionCount));
+        System.out.println(String.format("Port: %d\n", clientSocket.getPort()));
         System.out.print(headers);
         System.out.println("\r");
         System.out.println(body);
-        System.out.println(String.format("----------------------------------------------------------------\n\n"));
+        System.out.println(String.format("----------------------------------------------------------------\n"));
 
         // Write response
         StringBuilder response = new StringBuilder();
