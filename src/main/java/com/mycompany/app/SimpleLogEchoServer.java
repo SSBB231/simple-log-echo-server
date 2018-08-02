@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Timestamp;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -42,6 +43,8 @@ public class SimpleLogEchoServer implements LogEchoServer{
             return;
         }
 
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
         // Create read and write streams
         InputStreamReader clientInput = new InputStreamReader(clientSocket.getInputStream());
         BufferedReader clientInputReader = new BufferedReader(clientInput);
@@ -53,9 +56,12 @@ public class SimpleLogEchoServer implements LogEchoServer{
         String headers = readHeaders(clientInputReader);
         String body = readBody(clientInputReader, contentLength);
 
+
+        System.out.println(String.format("----------------------------------------------------------------\n%s\n", now.toString()));
         System.out.print(headers);
         System.out.println("\r");
         System.out.println(body);
+        System.out.println(String.format("----------------------------------------------------------------\n\n"));
 
         // Write response
         StringBuilder response = new StringBuilder();
