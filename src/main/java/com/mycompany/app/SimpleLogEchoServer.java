@@ -73,8 +73,8 @@ public class SimpleLogEchoServer implements LogEchoServer{
         String headers = readHeaders(clientInputReader);
         String body = readBody(clientInputReader, contentLength);
 
-        System.out.println(String.format("Connection on port %d opened", clientSocket.getPort()));
-        System.out.println(String.format("\n----------------------------------------------------------------\n%s", now.toString()));
+        System.out.println(String.format("\nConnection on port %d opened", clientSocket.getPort()));
+        System.out.println(String.format("----------------------------------------------------------------\n%s", now.toString()));
         System.out.println(String.format("Request number: %d", connectionCount));
         System.out.println(String.format("Headers size: %d", headers.length()));
         System.out.println(String.format("Body size: %d", body.length()));
