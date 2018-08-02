@@ -17,7 +17,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
     int connectionCount;
 
     public SimpleLogEchoServer(){
-        connectionCount = Integer.MAX_VALUE-2;
+        connectionCount = 0;
     }
 
     private void resetConnectionCount(){
