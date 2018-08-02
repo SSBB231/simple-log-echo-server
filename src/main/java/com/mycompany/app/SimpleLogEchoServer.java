@@ -76,7 +76,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
         System.out.println(String.format("\n----------------------------------------------------------------\n%s", now.toString()));
         System.out.println(String.format("Request number: %d", connectionCount));
-        System.out.println(String.format("Headers length: %d", headers.length()));
+        System.out.println(String.format("Headers size: %d", headers.length()));
         System.out.println(String.format("Body size: %d", body.length()));
         System.out.println(String.format("Port: %d\n", clientSocket.getPort()));
         System.out.print(headers);
@@ -98,6 +98,8 @@ public class SimpleLogEchoServer implements LogEchoServer{
 
         clientInputReader.close();
         clientWriter.close();
+
+        System.out.println(String.format("Connection on port %d closed", clientSocket.getPort()));
     }
 
     private int extractContentLength(String line){

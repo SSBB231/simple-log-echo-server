@@ -44,8 +44,8 @@
       <file leaf-file-name="SimpleLogEchoServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mycompany/app/SimpleLogEchoServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="79" column="71" selection-start-line="79" selection-start-column="71" selection-end-line="79" selection-end-column="71" />
+            <state relative-caret-position="382">
+              <caret line="101" column="95" selection-start-line="101" selection-start-column="95" selection-end-line="101" selection-end-column="95" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#487#488#0" expanded="true" />
@@ -226,12 +226,12 @@
       <workItem from="1533145433859" duration="1069000" />
       <workItem from="1533156752537" duration="2576000" />
       <workItem from="1533216779294" duration="817000" />
-      <workItem from="1533221300944" duration="6279000" />
+      <workItem from="1533221300944" duration="7159000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11654000" />
+    <option name="totallyTimeSpent" value="12534000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -472,8 +472,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mycompany/app/SimpleLogEchoServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="79" column="71" selection-start-line="79" selection-start-column="71" selection-end-line="79" selection-end-column="71" />
+        <state relative-caret-position="382">
+          <caret line="101" column="95" selection-start-line="101" selection-start-column="95" selection-end-line="101" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#487#488#0" expanded="true" />
