@@ -90,6 +90,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
         // Write response
         StringBuilder response = new StringBuilder();
         response.append("HTTP/1.1 200 OK\r\n");
+        response.append("Access-Control-Allow-Origin: *");
         response.append("Connection: close\r\n");
         response.append(String.format("Content-Length: %d\r\n", headers.length()+body.length()+2));
         response.append(String.format("Content-Type: %s\r\n", "text/plain"));
