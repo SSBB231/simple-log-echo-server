@@ -75,7 +75,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
         String body = readBody(clientInputReader, contentLength);
 
         System.out.println(String.format("\nConnection on port %d opened", clientSocket.getPort()));
-        System.out.println(String.format("----------------------------------------------------------------\n%s", now.toString()));
+        System.out.println(String.format("---------------This is the Request --------------------------\n%s", now.toString()));
         System.out.println(String.format("This string came from %s", clientSocket.getInetAddress().getHostName()));
         System.out.println(String.format("IP address of remote %s", clientSocket.getInetAddress().getHostAddress()));
         System.out.println(String.format("Request number: %d", connectionCount));
@@ -91,6 +91,8 @@ public class SimpleLogEchoServer implements LogEchoServer{
         StringBuilder response = new StringBuilder();
         response.append("HTTP/1.1 200 OK\r\n");
         response.append("Access-Control-Allow-Origin: *\n");
+        response.append("Access-Control-Allow-Headers: Content-Type\n");
+        response.append("Access-Control-Allow-Methods: POST, GET, OPTIONS\n");
         response.append("Connection: close\r\n");
         response.append(String.format("Content-Length: %d\r\n", headers.length()+body.length()+2));
         response.append(String.format("Content-Type: %s\r\n", "text/plain"));
