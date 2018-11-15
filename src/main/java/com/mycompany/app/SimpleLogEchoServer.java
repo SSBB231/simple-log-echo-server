@@ -90,12 +90,13 @@ public class SimpleLogEchoServer implements LogEchoServer{
         // Write response
         StringBuilder response = new StringBuilder();
         response.append("HTTP/1.1 200 OK\r\n");
-        response.append("Access-Control-Allow-Origin: *");
+        response.append("Access-Control-Allow-Origin: *\n");
         response.append("Connection: close\r\n");
         response.append(String.format("Content-Length: %d\r\n", headers.length()+body.length()+2));
         response.append(String.format("Content-Type: %s\r\n", "text/plain"));
         response.append(String.format("\r\n%s\r\n%s", headers, body));
 
+        printOutResponse(response);
 
         clientWriter.print(response.toString());
         clientWriter.flush();
@@ -104,6 +105,13 @@ public class SimpleLogEchoServer implements LogEchoServer{
         clientWriter.close();
 
         System.out.println(String.format("Connection on port %d closed", clientSocket.getPort()));
+    }
+
+    private void printOutResponse(StringBuilder response){
+        System.out.println("\nResponse to Send");
+        System.out.println("----------------------------------------------------------------");
+        System.out.println(response.toString()+"\n");
+        System.out.println("----------------------------------------------------------------");
     }
 
     private int extractContentLength(String line){
