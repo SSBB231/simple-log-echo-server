@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class SimpleLogEchoServer implements LogEchoServer{
 
     ServerSocket serverSocket;
@@ -99,6 +101,12 @@ public class SimpleLogEchoServer implements LogEchoServer{
         response.append(String.format("\r\n%s\r\n%s", headers, body));
 
         printOutResponse(response);
+
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e){
+            System.out.println("Some concurrent error happened:\n" + e.getMessage());
+        }
 
         clientWriter.print(response.toString());
         clientWriter.flush();
