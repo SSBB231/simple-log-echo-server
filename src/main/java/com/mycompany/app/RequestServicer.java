@@ -72,8 +72,7 @@ public class RequestServicer implements Runnable {
     }
 
     private void printOutResponse(StringBuilder response){
-        System.out.println("\nResponse to Send");
-        System.out.println("----------------------------------------------------------------");
+        System.out.println("\nResponse to Send:");
         System.out.println(response.toString()+"\n");
         System.out.println("----------------------------------------------------------------");
     }
@@ -98,7 +97,7 @@ public class RequestServicer implements Runnable {
             String body = readBody(clientInputReader, contentLength);
 
             System.out.println(String.format("\nConnection on port %d opened", clientSocket.getPort()));
-            System.out.println(String.format("---------------This is the Request --------------------------\n%s", now.toString()));
+            System.out.println(String.format("-----------------------------------------\nThis is the request\n%s", now.toString()));
             System.out.println(String.format("This string came from %s", clientSocket.getInetAddress().getHostName()));
             System.out.println(String.format("IP address of remote %s", clientSocket.getInetAddress().getHostAddress()));
             System.out.println(String.format("Request number: %d", connectionCount));
@@ -108,7 +107,7 @@ public class RequestServicer implements Runnable {
             System.out.print(headers);
             System.out.println("\r");
             System.out.println(body);
-            System.out.println(String.format("----------------------------------------------------------------"));
+            System.out.println(String.format("========================================="));
 
             // Write response
             StringBuilder response = new StringBuilder();
@@ -123,12 +122,7 @@ public class RequestServicer implements Runnable {
 
             printOutResponse(response);
 
-            try {
-                Thread.sleep(3000);
-            } catch (Exception e){
-                System.out.println("Some concurrent error happened:\n" + e.getMessage());
-            }
-
+            // Write response to client socket and flush
             clientWriter.print(response.toString());
             clientWriter.flush();
 
