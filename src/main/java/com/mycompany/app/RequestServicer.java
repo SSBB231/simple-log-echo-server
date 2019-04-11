@@ -113,7 +113,7 @@ public class RequestServicer implements Runnable {
             StringBuilder response = new StringBuilder();
             response.append("HTTP/1.1 200 OK\r\n");
             response.append("Access-Control-Allow-Origin: *\n");
-            response.append("Access-Control-Allow-Headers: Content-Type, Authorization\n");
+            response.append("Access-Control-Allow-Headers: *\n");
             response.append("Access-Control-Allow-Methods: POST, GET, OPTIONS\n");
             response.append("Connection: close\r\n");
             response.append(String.format("Content-Length: %d\r\n", headers.length()+body.length()+2));
