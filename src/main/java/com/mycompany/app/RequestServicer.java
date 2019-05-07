@@ -106,7 +106,7 @@ public class RequestServicer implements Runnable {
         }
 
         Instant now = Instant.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss - MMM dd, yy").withZone(ZoneId.of("CST"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss - MMM dd, yy").withZone(ZoneId.of("America/Chicago"));
 
         try{
             // Create read and write streams
