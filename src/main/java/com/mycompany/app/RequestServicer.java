@@ -1,6 +1,9 @@
 package com.mycompany.app;
 
 import java.io.*;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.net.Socket;
 
@@ -9,6 +12,7 @@ public class RequestServicer implements Runnable {
     private Socket clientSocket;
     private int contentLength;
     private int connectionCount;
+    private String challenge401;
 
     public RequestServicer(Socket clientSocket, int connectionCount){
         this.clientSocket = clientSocket;
@@ -42,8 +46,11 @@ public class RequestServicer implements Runnable {
                 contentLength = extractContentLength(line);
             }
 
+            if(line.toLowerCase().contains("authorization: ")){
+                generateChallenge401(line);
+            }
+
             retval.append(String.format("%s\r\n", line));
-            System.out.println(line);
             line = reader.readLine();
         }
 
@@ -74,7 +81,23 @@ public class RequestServicer implements Runnable {
     private void printOutResponse(StringBuilder response){
         System.out.println("\nResponse to Send:");
         System.out.println(response.toString()+"\n");
-        System.out.println("----------------------------------------------------------------");
+        System.out.println("End of response to send\n");
+    }
+
+    private void setChallenge401(String authorization){
+        challenge401 = generateChallenge401(authorization);
+    }
+
+    private String generateChallenge401(String line){
+
+        String authorization = line.split(": ")[1];
+
+        if(authorization.toLowerCase().startsWith("basic")){
+            return String.format("Basic realm=\"%s\", error=\"%s\"", "https://myobscure-thicket-server.herokuapp.com", "invalid_request");
+        }
+        else {
+            return String.format("Bearer realm=\"%s\", error=\"%s\"", "https://myobscure-thicket-server.herokuapp.com", "invalid_request");
+        }
     }
 
     public void run(){
@@ -82,7 +105,8 @@ public class RequestServicer implements Runnable {
             return;
         }
 
-        Date now = new Date();
+        Instant now = Instant.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss - MMM dd, yy").withZone(ZoneId.of("CST"));
 
         try{
             // Create read and write streams
@@ -96,22 +120,22 @@ public class RequestServicer implements Runnable {
             String headers = readHeaders(clientInputReader);
             String body = readBody(clientInputReader, contentLength);
 
-            System.out.println(String.format("\nConnection on port %d opened", clientSocket.getPort()));
-            System.out.println(String.format("-----------------------------------------\nThis is the request\n%s", now.toString()));
+            System.out.println(String.format("\nServicing request number %d", connectionCount));
+            System.out.println(String.format("Connection on port %d opened", clientSocket.getPort()));
+            System.out.println(String.format("\nRequest details:\n%s", formatter.format(now)));
             System.out.println(String.format("This string came from %s", clientSocket.getInetAddress().getHostName()));
             System.out.println(String.format("IP address of remote %s", clientSocket.getInetAddress().getHostAddress()));
-            System.out.println(String.format("Request number: %d", connectionCount));
-            System.out.println(String.format("Headers size: %d", headers.length()));
-            System.out.println(String.format("Body size: %d", body.length()));
-            System.out.println(String.format("Port: %d\n", clientSocket.getPort()));
+            System.out.println(String.format("Headers size: %d bytes", headers.length()));
+            System.out.println(String.format("Body size: %d bytes", body.length()));
+            System.out.println(String.format("Port: %d\n\nThe HTTP request:", clientSocket.getPort()));
             System.out.print(headers);
             System.out.println("\r");
             System.out.println(body);
-            System.out.println(String.format("========================================="));
+            System.out.println(String.format("End of the request\n"));
 
             // Write response
             StringBuilder response = new StringBuilder();
-            response.append("HTTP/1.1 200 OK\r\n");
+            response.append("HTTP/1.1 401 Unauthorized\r\n");
             response.append("Access-Control-Allow-Origin: *\n");
             response.append("Access-Control-Allow-Headers: *\n");
             response.append("Access-Control-Allow-Methods: POST, GET, OPTIONS\n");
@@ -130,6 +154,8 @@ public class RequestServicer implements Runnable {
             clientWriter.close();
 
             System.out.println(String.format("Connection on port %d closed", clientSocket.getPort()));
+            System.out.println(String.format("End of request number %d", connectionCount));
+            System.out.println("\n==================================================================");
         }
         catch(IOException e){
             System.out.println("There was an IOException:\n" + e.getMessage());

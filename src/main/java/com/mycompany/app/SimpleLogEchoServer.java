@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 public class SimpleLogEchoServer implements LogEchoServer{
 
     ServerSocket serverSocket;
-    int contentLength = 0;
     int connectionCount;
     ExecutorService executor;
 
