@@ -9,8 +9,5 @@
         <module name="SimpleLogEchoServer" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="SimpleLogEchoServer" target="6" />
-    </bytecodeTargetLevel>
   </component>
 </project>

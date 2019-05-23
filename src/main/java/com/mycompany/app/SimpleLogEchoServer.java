@@ -52,7 +52,7 @@ public class SimpleLogEchoServer implements LogEchoServer{
     }
 
     public void serviceConnection(Socket clientSocket) throws IOException{
-        Runnable requestServicer = new RequestServicer(clientSocket, connectionCount);
+        Runnable requestServicer = new RequestServicerOk(clientSocket, connectionCount);
         executor.execute(requestServicer);
     }
 }

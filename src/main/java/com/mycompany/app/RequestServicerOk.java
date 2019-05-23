@@ -1,20 +1,23 @@
 package com.mycompany.app;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.net.Socket;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-public class RequestServicer implements Runnable {
+public class RequestServicerOk implements Runnable {
 
     private Socket clientSocket;
     private int contentLength;
     private int connectionCount;
-    private String challenge401;
 
-    public RequestServicer(Socket clientSocket, int connectionCount){
+    public RequestServicerOk(Socket clientSocket, int connectionCount){
         this.clientSocket = clientSocket;
         this.connectionCount = connectionCount;
         contentLength = 0;
@@ -44,10 +47,6 @@ public class RequestServicer implements Runnable {
 
             if(line.toLowerCase().startsWith("content-length: ")){
                 contentLength = extractContentLength(line);
-            }
-
-            if(line.toLowerCase().contains("authorization: ")){
-                generateChallenge401(line);
             }
 
             retval.append(String.format("%s\r\n", line));
@@ -82,22 +81,6 @@ public class RequestServicer implements Runnable {
         System.out.println("\nResponse to Send:");
         System.out.println(response.toString()+"\n");
         System.out.println("End of response to send\n");
-    }
-
-    private void setChallenge401(String authorization){
-        challenge401 = generateChallenge401(authorization);
-    }
-
-    private String generateChallenge401(String line){
-
-        String authorization = line.split(": ")[1];
-
-        if(authorization.toLowerCase().startsWith("basic")){
-            return String.format("Basic realm=\"%s\", error=\"%s\"", "https://myobscure-thicket-server.herokuapp.com", "invalid_request");
-        }
-        else {
-            return String.format("Bearer realm=\"%s\", error=\"%s\"", "https://myobscure-thicket-server.herokuapp.com", "invalid_request");
-        }
     }
 
     public void run(){
@@ -135,7 +118,7 @@ public class RequestServicer implements Runnable {
 
             // Write response
             StringBuilder response = new StringBuilder();
-            response.append("HTTP/1.1 401 Unauthorized\r\n");
+            response.append("HTTP/1.1 200 Ok\r\n");
             response.append("Access-Control-Allow-Origin: *\n");
             response.append("Access-Control-Allow-Headers: *\n");
             response.append("Access-Control-Allow-Methods: POST, GET, OPTIONS\n");
