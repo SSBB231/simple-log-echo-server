@@ -39,6 +39,7 @@ public class RequestServicerChooseResponse implements Runnable {
         statuses.put("403", "Forbidden");
         statuses.put("404", "Not Found");
         statuses.put("410", "Gone");
+        statuses.put("429", "Too Many Requests");
         statuses.put("500", "Internal Server Error");
         statuses.put("501", "Not Implemented");
         statuses.put("503", "Service Unavailable");
