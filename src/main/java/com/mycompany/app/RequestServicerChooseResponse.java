@@ -116,8 +116,9 @@ public class RequestServicerChooseResponse implements Runnable {
 
     private void addStatus(StringBuilder response) {
         String description = statuses.get(statusCode);
+
         if(Objects.isNull(description)){
-            response.append("HTTP/1.1 200 Ok");
+            response.append("HTTP/1.1 200 Ok\r\n");
         }
         else {
             response.append(String.format("HTTP/1.1 %s %s\r\n", statusCode, statuses.get(statusCode)));
