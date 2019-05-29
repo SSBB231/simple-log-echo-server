@@ -20,6 +20,7 @@ public class RequestServicerChooseResponse implements Runnable {
 
     public RequestServicerChooseResponse(Socket clientSocket, int connectionCount){
         initStatusesMap();
+        statusCode = null;
         this.clientSocket = clientSocket;
         this.connectionCount = connectionCount;
         contentLength = 0;
@@ -43,7 +44,7 @@ public class RequestServicerChooseResponse implements Runnable {
         statuses.put("500", "Internal Server Error");
         statuses.put("501", "Not Implemented");
         statuses.put("503", "Service Unavailable");
-        statuses.put("550", "Permission denied");
+        statuses.put("550", "Permission Denied");
     }
 
     private int extractContentLength(String line){
